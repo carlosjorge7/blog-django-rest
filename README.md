@@ -12,3 +12,7 @@ pip install -r requirements.txt
 # Generar django proyect
 
 django-admin startproject core .
+
+# generate blog api
+
+python manage.py startapp blog
