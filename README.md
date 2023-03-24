@@ -16,3 +16,12 @@ django-admin startproject core .
 # generate blog api
 
 python manage.py startapp blog
+
+# Añadir al fichero de core/settings
+
+'blog'
+
+# Hacemos las migraciones
+
+python manage.py makemigrations
+python manage.py migrate
