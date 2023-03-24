@@ -1,6 +1,0 @@
-virtualenv venv  
-source ./venv/Scripts/activate
-pip install -r requirements.txt
-
-# Generate django proyect
-django-admin startproject core .
