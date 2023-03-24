@@ -1,20 +1,24 @@
 from pathlib import Path
+from corsheaders.defaults import default_headers
+import os
+import environ
+env = environ.Env()
 
+# reading environ
+environ.Env.read_env()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+DEBUG = env('DEBUG')
+SECRET_KEY = env('SECRET_KEY')
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ALLOWED_HOSTS = []
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-33k&@x-&#g=72kd7qt28qz8(zrcv0-$be6*k$=($%^lrl!5m^6'
+# SECRET_KEY = 'django-insecure-33k&@x-&#g=72kd7qt28qz8(zrcv0-$be6*k$=($%^lrl!5m^6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# DEBUG = True
 
 
 # Application definition
@@ -26,16 +30,42 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'core',
+    
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    
+    #Corsheaders
+    "corsheaders.middleware.CorsMiddleware",
+    
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+#Acceso a dominios
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+
+    'http://localhost:8080',
+    'http://127.0.0.1:8080',
+
+    'http://localhost:4200',
+    'http://127.0.0.1:8080',
+)
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'contenttype',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -107,8 +137,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+MEDIA_URL= '/media'
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
