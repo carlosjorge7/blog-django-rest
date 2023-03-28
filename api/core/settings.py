@@ -11,7 +11,7 @@ DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -56,14 +56,10 @@ MIDDLEWARE = [
 
 #Acceso a dominios
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8000',
-    'http://127.0.0.1:8000',
-
     'http://localhost:8080',
     'http://127.0.0.1:8080',
-
-    'http://localhost:4200',
-    'http://127.0.0.1:8080',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
 )
 
 CORS_ALLOW_HEADERS = list(default_headers) + [

@@ -21,7 +21,15 @@ python manage.py startapp blog
 
 'blog'
 
-# Hacemos las migraciones
+# Hacemos las migraciones (en /api)
 
 python manage.py makemigrations
 python manage.py migrate
+
+# Creamos un superusuario para crear post (en /api)
+
+python manage.py createsuperuser
+
+# Ejecutamos el servidor
+
+python manage.py runserver 5000
